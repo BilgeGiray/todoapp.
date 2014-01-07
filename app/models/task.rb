@@ -6,6 +6,7 @@ class Task < ActiveRecord::Base
 		self.deadline < Date.today
 	end
 	belongs_to :user
+	belongs_to :delegated, class_name: "User", foreign_key: "delegated_id"
 
 	def distance_from_now_in_days
 		(self.deadline - Date.today).to_i     
