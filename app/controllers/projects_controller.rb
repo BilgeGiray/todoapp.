@@ -3,15 +3,18 @@ class ProjectsController < ApplicationController
   def index
     @projects = Project.all
   end
-  
+
   def new
     @project = Project.new
   end
 
   def create
     @project = Project.new(project_params)
-    @project.save
+    if !@project.save
+      render action: 'error'
+    end
   end
+
 
   private
   def project_params
