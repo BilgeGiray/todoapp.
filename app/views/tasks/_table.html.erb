@@ -5,28 +5,28 @@
 
 
       <th>
-<% if params[:sorting] == "deadline" %>
-  Deadline ^
-<% else %>
-  <%= link_to "Deadline", tasks_path(sorting: "deadline") %>
-<% end %>
-</th>
-<th>
-<% if params[:sorting] == "duration" %>
-  Duration ^
-<% else %>
-  <%= link_to "Duration", tasks_path(sorting: "duration") %>
-<% end %> 
-</th>
-      
+        <% if params[:sorting] == "deadline" %>
+        Deadline ^
+        <% else %>
+        <%= link_to "Deadline", tasks_path(sorting: "deadline") %>
+        <% end %>
+      </th>
+      <th>
+        <% if params[:sorting] == "duration" %>
+        Duration ^
+        <% else %>
+        <%= link_to "Duration", tasks_path(sorting: "duration") %>
+        <% end %> 
+      </th>
+      a
       <th></th>
       <th></th>
     </tr>
   </thead>
 
   <tbody>
-  <% tasks.each do |task| %>    
-  <tr>  
+    <% tasks.each do |task| %>    
+    <tr>  
 
       <td>
         <%= form_for task do |f| %>
@@ -34,9 +34,13 @@
         <% end %>
       </td>
 
-        <td class="<%= css_class %>">
-          <%= link_to task.name, edit_task_path(task) %></td>
-        <td><%= task.deadline %></td>
+      <td class="<%= css_class %>">
+        <%= link_to task.name, edit_task_path(task) %></td>
+        <td>
+          <%= "in " if !task.is_delayed? %> 
+          <%= pluralize(task.distance_from_now_in_days.abs, "Day")  %>
+          <%= " ago " if task.is_delayed? %> 
+        </td>
         
         <td><%= task.duration %></td>
 
@@ -50,6 +54,6 @@
 
 
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      <% end %>
+    </tbody>
+  </table>
