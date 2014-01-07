@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
   before_action :set_task, only: [:edit, :update, :destroy]
 
   # GET /tasks
@@ -67,6 +68,13 @@ end
     # Use callbacks to share common setup or constraints between actions.
     def set_task
       @task = Task.find(params[:id])
+
+
+if @task.user_id != current_user.id
+  redirect_to tasks_url, alert: 'You can edit only your own Tasks.'
+end
+
+
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
