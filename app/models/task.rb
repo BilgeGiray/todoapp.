@@ -5,6 +5,7 @@ class Task < ActiveRecord::Base
 	def is_delayed?
 		self.deadline < Date.today
 	end
+	belongs_to :project
 	belongs_to :user
 	belongs_to :delegated, class_name: "User", foreign_key: "delegated_id"
 
