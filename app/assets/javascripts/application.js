@@ -11,6 +11,8 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.ui.effect.all
+
 //= require jquery_ujs
 //= require bootstrap.min
 //= require bootstrap-datepicker
