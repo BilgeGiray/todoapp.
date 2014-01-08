@@ -4,6 +4,13 @@ class ProjectsController < ApplicationController
     @projects = Project.all
   end
 
+  def update
+  @project = Project.find(params[:id])
+  if !@project.update(project_params)
+    render action: 'error'
+  end
+end
+
   def new
     @project = Project.new
   end
@@ -20,7 +27,14 @@ class ProjectsController < ApplicationController
   @project.destroy
 end
 
+def edit
+  @project = Project.find(params[:id])
+end
+
+
   private
+
+
   def project_params
     params.require(:project).permit(:name)
   end 
